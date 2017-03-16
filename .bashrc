@@ -143,3 +143,4 @@ alias cd-='cd -'
 alias cd..='cd ..'
 alias u='up'
 
+alias duelyst='chromium-browser --new-window --user-agent="Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36" --app=https://play.duelyst.com &'
