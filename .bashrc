@@ -85,7 +85,7 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 
 # some more ls aliases
-alias ll='ls -alF'
+alias ll='ls -alFh'
 alias la='ls -A'
 alias l='ls -CF'
 
@@ -142,5 +142,7 @@ alias R='R --vanilla'
 alias cd-='cd -'
 alias cd..='cd ..'
 alias u='up'
+
+alias dev='cd ~/Documents/Dev/'
 
 alias duelyst='chromium-browser --new-window --user-agent="Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36" --app=https://play.duelyst.com &'
