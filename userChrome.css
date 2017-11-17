@@ -3,6 +3,11 @@
  * /home/<username>/.mozilla/firefox/xxxxxxxx.default/chrome
 */
 
+
+/* * Do not remove the @namespace line -- it's required for correct functioning */
+/* set default namespace to XUL */
+@namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
+
 /********************************************
  * REMOVE THE THREE DOTS ON THE ADRESS BAR
 *********************************************/
@@ -96,4 +101,13 @@
 /* http://http-login.badssl.com/ */
 #urlbar[pageproxystate='valid'] #identity-box.insecureLoginForms:after {
   background: #a4000f;  /* Firefox Red 70 */
+}
+
+
+/* ****************************************
+ * CHANGE COLOR OF THE LOADING TAB THINGY
+******************************************/
+.tab-throbber::before {
+fill: #efa802 !important;
+opacity: 1 !important;
 }
