@@ -1,0 +1,79 @@
+# Define some colors
+COLOR_DEFAULT=$(echo -en '\[\033[0m\]')
+TXT_BLACK_BOLD=$(echo -en '\[\033[1;38;5;238m\]')
+BG_BEIGE=$(echo -en '\[\033[1;48;5;230m\]')
+BG_ORANGE=$(echo -en '\[\033[1;48;5;202m\]')
+TXT_ORANGE=$(echo -en '\[\033[1;38;5;202m\]')
+
+# determine git branch name
+function parse_git_branch(){
+    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/*\s*\(.*\)/\1/'
+}
+
+# determine mercurial branch
+function parse_hg_branch(){
+    hg branch 2> /dev/null | awk '{print " ("$1")"}'
+}
+
+# Check git branch, if not maybe mercurial, if not set nothing
+function set_version_control_branch(){
+    # try git by default
+    branch=$(parse_git_branch)
+    # if not git then try mercurial
+    if [ "$branch" == "" ]; then
+        branch=$(parse_hg_branch)
+    fi
+    # will be empty if none
+    if [ "$branch" == "" ]; then
+        BRANCH=""
+    else
+        BRANCH="$BG_ORANGE$TXT_BLACK_BOLD ${branch} $COLOR_DEFAULT$BG_ORANGE$TXT_BLACK_BOLDΣ$COLOR_DEFAULT "
+    fi
+}
+
+# Return the prompt symbol to use, also color it red if previous command failed
+function set_prompt_symbol(){
+    if test $1 -eq 0; then
+        PROMPT_SYMBOL="\$"
+    else
+        PROMPT_SYMBOL="$RED\$$COLOR_DEFAULT"
+    fi
+}
+
+# Determine active Python venv
+function set_virtualenv(){
+    if test -z "$VIRTUAL_ENV"; then
+        PYTHON_VIRTUALENV=""
+    else
+        PYTHON_VIRTUALENV="$BG_BEIGE$TXT_BLACK_BOLD (`basename \"$VIRTUAL_ENV\"`) $COLOR_DEFAULT"
+    fi
+}
+
+# Set the full bash prompt
+function set_bash_prompt(){
+    # Set the prompt symbol first so we don't loose he return value of the last
+    # command
+    set_prompt_symbol $?
+
+    # Set the venv
+    set_virtualenv
+
+    # Set version control
+    set_version_control_branch
+
+
+    # Set the link for virtual_env if based on branch existence
+    if [ "$VIRTUAL_ENV" != "" ]; then
+        # if no branch, then link with default prompt color
+        # else we link with branch color
+        if [ "$BRANCH" == "" ]; then
+            PROMPT_LINK="$BG_BEIGE$TXT_BLACK_BOLDΣ$COLOR_DEFAULT "
+        else
+            PROMPT_LINK="$TXT_ORANGE$BG_BEIGEΣ$COLOR_DEFAULT"
+        fi
+    else
+        unset PROMPT_LINK
+    fi
+    # create the bash prompt variable
+    PS1="${PYTHON_VIRTUALENV}${PROMPT_LINK}${BRANCH}${debian_chroot:+($debian_chroot)}\u@\h:\w${PROMPT_SYMBOL} "
+}
