@@ -134,6 +134,7 @@ function up(){
 # Aliases
 alias dinopython='python2.7'
 #alias python='python3.5'
+alias ipython='ipython3'
 alias top='htop'
 eval $(thefuck --alias fuck)
 eval $(thefuck --alias fu)
