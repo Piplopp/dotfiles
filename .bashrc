@@ -158,8 +158,6 @@ export PATH="/home/jerome/.pyenv/bin:$PATH"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 
-# MICROBIOCHEK EXPORTS
-export MICROBIOCHEK_CONF="/home/jerome/Documents/Dev/microbiochek/worker/microbiochek_conf.yaml"
 # TOOLS EXPORTS
 export PATH="/home/jerome/tools/eutils/edirect:$PATH"
 
@@ -169,18 +167,4 @@ PERL_LOCAL_LIB_ROOT="/home/jerome/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_
 PERL_MB_OPT="--install_base \"/home/jerome/perl5\""; export PERL_MB_OPT;
 PERL_MM_OPT="INSTALL_BASE=/home/jerome/perl5"; export PERL_MM_OPT;
 
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/jerome/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/home/jerome/miniconda3/etc/profile.d/conda.sh" ]; then
-        . "/home/jerome/miniconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/home/jerome/miniconda3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
 
