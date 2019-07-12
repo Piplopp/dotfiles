@@ -4,6 +4,7 @@ TXT_BLACK_BOLD=$(echo -en '\[\033[1;38;5;238m\]')
 BG_BEIGE=$(echo -en '\[\033[1;48;5;230m\]')
 BG_ORANGE=$(echo -en '\[\033[1;48;5;202m\]')
 TXT_ORANGE=$(echo -en '\[\033[1;38;5;202m\]')
+BG_BLUE=$(echo -en '\[\033[1;48;5;123m\]')
 
 # determine git branch name
 function parse_git_branch(){
@@ -42,10 +43,12 @@ function set_prompt_symbol(){
 
 # Determine active Python venv
 function set_virtualenv(){
-    if test -z "$VIRTUAL_ENV"; then
-        PYTHON_VIRTUALENV=""
-    else
-        PYTHON_VIRTUALENV="$BG_BEIGE$TXT_BLACK_BOLD (`basename \"$VIRTUAL_ENV\"`) $COLOR_DEFAULT"
+    if test -z "$VIRTUAL_ENV" && test -z "$CONDA_PREFIX"; then # are we in an venv
+        CURRENT_VIRTUALENV=""
+    elif test -z "$CONDA_PREFIX"; then  # NOT in CONDA so in Pyenv
+        CURRENT_VIRTUALENV="$BG_BEIGE$TXT_BLACK_BOLD (`basename \"$VIRTUAL_ENV\"`) $COLOR_DEFAULT"
+    elif test -z "$VIRTUAL_ENV"; then  # NOT IN PYENV so in Conda
+        CURRENT_VIRTUALENV="$BG_BLUE$TXT_BLACK_BOLD (`basename \"$CONDA_PREFIX\"`) $COLOR_DEFAULT"
     fi
 }
 
@@ -63,7 +66,7 @@ function set_bash_prompt(){
 
 
     # Set the link for virtual_env if based on branch existence
-    if [ "$VIRTUAL_ENV" != "" ]; then
+    if [ "$VIRTUAL_ENV" != "" ] && [ -z "$CONDA_PREFIX" ]; then
         # if no branch, then link with default prompt color
         # else we link with branch color
         if [ "$BRANCH" == "" ]; then
@@ -71,9 +74,15 @@ function set_bash_prompt(){
         else
             PROMPT_LINK="$TXT_ORANGE$BG_BEIGEΣ$COLOR_DEFAULT"
         fi
+    elif [ "$CONDA_PREFIX" != "" ] && [ -z "$VIRTUAL_ENV" ]; then
+        if [ "$BRANCH" == "" ]; then
+            PROMPT_LINK="$BG_BLUE$TXT_BLACK_BOLDΣ$COLOR_DEFAULT "
+         else
+            PROMPT_LINK="$TXT_ORANGE$BG_BLUEΣ$COLOR_DEFAULT"
+        fi
     else
         unset PROMPT_LINK
     fi
     # create the bash prompt variable
-    PS1="${PYTHON_VIRTUALENV}${PROMPT_LINK}${BRANCH}${debian_chroot:+($debian_chroot)}\u@\h:\w${PROMPT_SYMBOL} "
+    PS1="${CURRENT_VIRTUALENV}${PROMPT_LINK}${BRANCH}${debian_chroot:+($debian_chroot)}\u@\h:\w${PROMPT_SYMBOL} "
 }
