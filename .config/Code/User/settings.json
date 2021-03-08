@@ -1,0 +1,37 @@
+{
+    // Look
+    "workbench.colorTheme": "One Dark Pro",
+    "workbench.iconTheme": "file-icons",
+    "php.validate.run": "onType",
+    "powermode.enabled": false,
+    "powermode.presets": "fireworks",
+    "editor.formatOnPaste": true,
+    "workbench.list.automaticKeyboardNavigation": false,
+
+    // Python tweaks
+    "python.pythonPath": "/home/jerome/.pyenv/versions/foutoir/bin/python",
+    "python.linting.pylintEnabled": false,
+    "python.linting.flake8Enabled": true,
+    "python.formatting.provider": "none",
+    "files.insertFinalNewline": true,
+    "atomKeymap.promptV3Features": true,
+
+    // Remote server config
+    "remote.port": 52698,
+    "remote.onstartup": false,
+    // "remote.host": "127.0.0.1",
+    "remote.dontShowPortAlreadyInUseError": false,
+    "extensions.ignoreRecommendations": true,
+    "breadcrumbs.enabled": true,
+    "workbench.statusBar.feedback.visible": false,
+    "latex-workshop.message.update.show": false,
+    "latex-workshop.view.pdf.viewer": "tab",
+    "previewServer.port": 5000,
+    "files.associations": {
+        "*.Snakefile": "python"
+    },
+    "telemetry.enableTelemetry": false,
+    "telemetry.enableCrashReporter": false,
+    "workbench.startupEditor": "welcomePage",
+    "editor.multiCursorModifier": "ctrlCmd",
+}
