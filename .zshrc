@@ -4,16 +4,17 @@
 # Path to your oh-my-zsh installation.
 export ZSH="/home/jerome/.oh-my-zsh"
 
+
 CASE_SENSITIVE="true"
 
 # allow tab completion in the middle of a word
-setopt COMPLETE_IN_WORD
 setopt CORRECT
 
-# for sharing history between zsh processes
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
 HISTSIZE=2000
 SAVEHIST=2000
+
+# for sharing history between zsh processes
 setopt INC_APPEND_HISTORY
 setopt SHARE_HISTORY
 
@@ -28,8 +29,27 @@ plugins=(git pip)
 
 
 # Load the theme
-source .zsh_theme
+source $HOME/.zsh_theme
 source $ZSH/oh-my-zsh.sh
+
+
+# enable color support of ls and also add handy aliases
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias ls='ls --color=auto'
+    #alias dir='dir --color=auto'
+    #alias vdir='vdir --color=auto'
+
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto -n'
+    alias egrep='egrep --color=auto'
+fi
+
+# some more ls aliases
+alias ll='ls -alFh'
+alias la='ls -A'
+alias l='ls -CF'
+
 
 
 # move upward by n
@@ -60,20 +80,36 @@ alias cd-='cd -'
 alias cd..='cd ..'
 alias u='up'
 
-export PATH="/home/jerome/.local/bin:$PATH"
+# export PATH="/home/jerome/.local/bin:$PATH"
+
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/jerome/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+__conda_setup="$('/home/jerome/tools/Other/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__conda_setup"
 else
-    if [ -f "/home/jerome/miniconda3/etc/profile.d/conda.sh" ]; then
-        . "/home/jerome/miniconda3/etc/profile.d/conda.sh"
+    if [ -f "/home/jerome/tools/Other/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/jerome/tools/Other/miniconda3/etc/profile.d/conda.sh"
     else
-        export PATH="/home/jerome/miniconda3/bin:$PATH"
+        export PATH="/home/jerome/tools/Other/miniconda3/bin:$PATH"
     fi
 fi
 unset __conda_setup
 # <<< conda initialize <<<
 
+
+# To fix the hostname displayed in prompt when within a CONDA env
+# https://github.com/conda/conda/issues/7031
+# Basically CONDA overwrite the $HOST variable used by zsh to determine the
+# current hostname.
+# The precmd is executed before displaying the prompt; and the
+# preexec is executed just before the user command.
+HOSTNAME="$(hostname)"
+precmd() {
+    OLDHOST="${HOST}"
+    HOST="${HOSTNAME}"
+}
+preexec() {
+    HOST="${OLDHOST}"
+}

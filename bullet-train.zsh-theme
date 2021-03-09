@@ -37,6 +37,7 @@ if [ ! -n "${BULLETTRAIN_PROMPT_ORDER+1}" ]; then
     git
     hg
     cmd_exec_time
+    ssh_session
   )
 fi
 
@@ -100,13 +101,18 @@ fi
 
 # CONDA
 if [ ! -n "${BULLETTRAIN_CONDA_BG+1}" ]; then
-  BULLETTRAIN_CONDA_BG=yellow
+  BULLETTRAIN_CONDA_BG=red
 fi
 if [ ! -n "${BULLETTRAIN_CONDA_FG+1}" ]; then
   BULLETTRAIN_CONDA_FG=white
 fi
-if [ ! -n "${BULLETTRAIN_CONDA_PREFIX+1}" ]; then
-  BULLETTRAIN_CONDA_PREFIX="C"
+
+# SSH SESSION
+if [ ! -n "${BULLETTRAIN_SSH_BG+1}" ]; then
+  BULLETTRAIN_SSH_BG=yellow
+fi
+if [ ! -n "${BULLETTRAIN_SSH_FG+1}" ]; then
+  BULLETTRAIN_SSH_FG=white
 fi
 
 # NVM
@@ -601,11 +607,39 @@ prompt_virtualenv() {
 prompt_conda() {
   local conda_path="$CONDA_PREFIX"
   if [[ -n $conda_path && -n $CONDA_DISABLE_PROMPT ]]; then
-    prompt_segment $BULLETTRAIN_CONDA_BG $BULLETTRAIN_CONDA_FG $BULLETTRAIN_CONDA_PREFIX" $(basename $conda_path)"
-  else
-    return
+    prompt_segment $BULLETTRAIN_CONDA_BG $BULLETTRAIN_CONDA_FG "$(basename $conda_path)"
   fi
 }
+
+
+
+
+
+
+
+
+
+
+
+
+prompt_ssh_session() {
+  if [[ -n "$SSH_CLIENT" || -n "$SSH_TTY" ]]; then
+    prompt_segment $BULLETTRAIN_SSH_BG $BULLETTRAIN_SSH_FG "remote/ssh"
+  fi
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 # NVM: Node version manager
