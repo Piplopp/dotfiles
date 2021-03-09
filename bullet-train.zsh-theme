@@ -101,7 +101,7 @@ fi
 
 # CONDA
 if [ ! -n "${BULLETTRAIN_CONDA_BG+1}" ]; then
-  BULLETTRAIN_CONDA_BG=red
+  BULLETTRAIN_CONDA_BG=yellow
 fi
 if [ ! -n "${BULLETTRAIN_CONDA_FG+1}" ]; then
   BULLETTRAIN_CONDA_FG=white
@@ -109,7 +109,7 @@ fi
 
 # SSH SESSION
 if [ ! -n "${BULLETTRAIN_SSH_BG+1}" ]; then
-  BULLETTRAIN_SSH_BG=yellow
+  BULLETTRAIN_SSH_BG=red
 fi
 if [ ! -n "${BULLETTRAIN_SSH_FG+1}" ]; then
   BULLETTRAIN_SSH_FG=white
