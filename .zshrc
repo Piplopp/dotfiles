@@ -7,12 +7,11 @@ export ZSH="/home/jerome/.oh-my-zsh"
 
 CASE_SENSITIVE="true"
 
-# allow tab completion in the middle of a word
-setopt CORRECT
-
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
 HISTSIZE=2000
 SAVEHIST=2000
+
+setopt HIST_REDUCE_BLANKS
 
 # for sharing history between zsh processes
 setopt INC_APPEND_HISTORY
@@ -24,6 +23,9 @@ setopt NO_BEEP
 # do not print error on non matched patterns
 setopt nonomatch
 
+# remove zsh annoying prompt when using the rm command
+setopt rm_star_silent
+
 # ZSH Plugins
 plugins=(git pip)
 
@@ -31,7 +33,6 @@ plugins=(git pip)
 # Load the theme
 source $HOME/.zsh_theme
 source $ZSH/oh-my-zsh.sh
-
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
@@ -80,7 +81,7 @@ alias cd-='cd -'
 alias cd..='cd ..'
 alias u='up'
 
-# export PATH="/home/jerome/.local/bin:$PATH"
+export PATH="/home/jerome/.local/bin:$PATH"
 
 
 # >>> conda initialize >>>
