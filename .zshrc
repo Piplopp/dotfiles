@@ -71,6 +71,11 @@ alias python='python3'
 alias ipython='ipython3'
 alias top='htop'
 
+eval $(thefuck --alias fuck)
+eval $(thefuck --alias fu)
+eval $(thefuck --alias FUCK)
+eval $(thefuck --alias f)
+
 alias c='git commit'
 alias s='git status'
 alias a='git add'
@@ -115,3 +120,5 @@ precmd() {
 preexec() {
     HOST="${OLDHOST}"
 }
+
+eval $(thefuck --alias)
