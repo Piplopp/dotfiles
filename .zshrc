@@ -64,6 +64,11 @@ function up(){
   cd $path
 }
 
+export PATH="/home/jerome/.local/bin:$PATH"
+# (for git) See https://stackoverflow.com/a/60498979
+export LESS=-FRX
+
+
 # Aliases
 alias df='df -Th'
 alias dinopython='python2.7'
@@ -86,9 +91,6 @@ alias cd-='cd -'
 alias cd..='cd ..'
 alias u='up'
 
-export PATH="/home/jerome/.local/bin:$PATH"
-# (for git) See https://stackoverflow.com/a/60498979
-export LESS=-FRX
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
@@ -120,5 +122,3 @@ precmd() {
 preexec() {
     HOST="${OLDHOST}"
 }
-
-eval $(thefuck --alias)
