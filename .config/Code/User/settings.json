@@ -11,6 +11,9 @@
     "python.linting.pylintEnabled": false,
     "python.linting.flake8Enabled": true,
     "python.linting.flake8Path": "/home/jerome/tools/Other/miniconda3/envs/mbc_dev/bin/flake8",
+    "python.linting.flake8Args": [
+        "--max-line-length=120"
+    ],
     "python.formatting.provider": "none",
     "files.insertFinalNewline": true,
     "atomKeymap.promptV3Features": true,
